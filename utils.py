@@ -98,7 +98,7 @@ def resample_frames(data, torig, tout):
 def compile_resp(dat, nskip=4, npc=0, zscore=True):
     istim = dat['istim']
     # split stims into test and train
-    itest = np.zeros((istim.size,), np.bool)
+    itest = np.zeros((istim.size,), np.bool_)
     itest[::nskip] = 1
     itrain = np.ones((istim.size,), np.bool)
     itrain[itest] = 0
