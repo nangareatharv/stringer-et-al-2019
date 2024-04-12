@@ -78,7 +78,7 @@ def population_distances(sresp, istim):
 
     print(u.shape)
 
-    model = Isomap.Isomap(n_components=3).fit(u)
+    model = Isomap(n_components=3).fit(u)
     embedding = model.embedding_
 
     return cc, dtheta_aligned, cbinned, embedding
