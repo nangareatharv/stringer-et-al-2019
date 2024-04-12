@@ -89,7 +89,7 @@ def binned(x, y, bins):
 def resample_frames(data, torig, tout):
     ''' resample data at times torig at times tout '''
     ''' data is components x time '''
-    fs = torig.size / tout.size # relative sampling rate
+    fs = torig.size / tout.size # relative sampling_rate
     data = gaussian_filter1d(data, np.ceil(fs/4), axis=1)
     f = interp1d(torig, data, kind='linear', axis=-1, fill_value='extrapolate')
     dout = f(tout)
