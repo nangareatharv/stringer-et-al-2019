@@ -125,9 +125,10 @@ def fig1(dataroot, saveroot, save_figure=False):
     sresp, istim, itrain, itest = utils.compile_resp(dat)
 
     nbase = 10
-    A, B, D, rez         = decoders.fit_indep_model(sresp[:, itrain], istim[itrain], nbase)
-    apred1, logL, B2, Kup = decoders.test_indep_model(sresp[:, itest], A, nbase)
+    A, B, vv, SNR, ypred       = decoders.fit_indep_model(sresp[:, itrain], istim[itrain], nbase)
+    apred1, logL, B2, Kup = decoders.test_indep_model(sresp[:, itest], A, vv, nbase=10)
     Apred = A.T @ B2
+    rez = sresp[:, itrain] - ypred
     SNR = np.var(Apred, axis=1) / np.var(rez, axis=1)
     btheta = np.argmax(Apred @ Kup.T, axis=1) / Kup.shape[0] * 2 * np.pi
 
@@ -143,7 +144,7 @@ def fig1(dataroot, saveroot, save_figure=False):
     #spks_norm = spks_norm - dat['u_spont'] @ (dat['u_spont'].T @ spks_norm)
     stimtimes = dat['stimtimes']
 
-    stimtrace = np.zeros((dat['spks'].shape[1],), np.bool)
+    stimtrace = np.zeros((dat['spks'].shape[1],), bool)
     stimtrace[stimtimes] = True
     stimtrace = stimtrace[trange[0]:trange[-1]]
 

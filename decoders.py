@@ -449,7 +449,7 @@ def nn_discriminator(xtrain, ytrain, xtest, ytest):
     D_out = 1
     model = TwoLayer(D_in, H, D_out)
 
-    device = torch.device("cuda")
+    device = torch.device("cpu")
     model.to(device)
 
     optimizer = optim.SGD(model.parameters(), lr=1e-3, momentum=0.9)
