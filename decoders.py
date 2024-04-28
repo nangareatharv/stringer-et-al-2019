@@ -24,7 +24,7 @@ try:
 
     class TwoLayer(nn.Module):
         def __init__(self, D_in, H, D_out):
-            super(TwoLayer, self).__init__()
+            super(, self).__init__()
             self.sigmoid = nn.Sigmoid()
             self.lil = nn.Sequential(
                 nn.Linear(D_in, H),
@@ -432,6 +432,7 @@ def derivative_decoder(istim, sresp, itrain, itest, lam=1, nangle=2*np.pi,
 
     return D, dy, A
 
+# random forest classifier
 def rf_discriminator(xtrain, ytrain, xtest, ytest):
     clf = RandomForestClassifier(n_estimators=1000,max_depth=None)
     clf.fit(xtrain, ytrain)
@@ -443,11 +444,12 @@ def rf_discriminator(xtrain, ytrain, xtest, ytest):
     ychoice = ((ypred>0.5) - 0.5) * 2
     return ychoice
 
-def nn_discriminator(xtrain, ytrain, xtest, ytest):
+# Neural Network classifier
+def nn_discriminator(xtrain, ytrain, xtest, ytest):  
     D_in  = xtrain.shape[1]
     H = 100
     D_out = 1
-    model = TwoLayer(D_in, H, D_out)
+    model = (D_in, H, D_out)
 
     device = torch.device("cpu")
     model.to(device)
