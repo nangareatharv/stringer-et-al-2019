@@ -229,7 +229,7 @@ def fig1(dataroot, saveroot, save_figure=False):
     ax = fig.add_axes([0.04,.31,.45,.3])
     nt = dsmooth.shape[1]
     ax.imshow(dsmooth[:,:], cmap=plt.get_cmap('gray'),vmin=-.3, vmax=6, aspect='auto')
-    ax.text(-.05,.5, 'neurons sorted by pref angle', verticalalignment='center', transform=ax.transAxes,rotation=90)
+    ax.text(-.05,.5, 'neurons sorted using preference', verticalalignment='center', transform=ax.transAxes,rotation=90)
     ax.text(1.01,0.0, '5,000 neurons',transform=ax.transAxes,rotation=270)
     ax.set_yticks([])
     ax.set_xticks([])
@@ -252,7 +252,8 @@ def fig1(dataroot, saveroot, save_figure=False):
     theta0 = np.pi/4 + np.pi
     ix = (np.logical_and(btheta>theta0, btheta<theta0 + dtheta)).nonzero()[0].astype('int')
     ixsort = np.argsort(SNR[ix])[::-1]
-    iex = ix[ixsort[5]]#, ix[ixsort[150]]]
+    #iex = ix[ixsort[5]]#, ix[ixsort[150]]]
+    iex = 1347
     istimtest = istim[:-2][itest[:-2]]
     issort = np.argsort(istimtest)
     thpref=btheta[iex]
@@ -270,7 +271,7 @@ def fig1(dataroot, saveroot, save_figure=False):
     im=ax.imshow(rresp.T, aspect='auto', extent=(-4*.33, 10*.33, istimrange[0],istimrange[-1]),
               cmap=plt.get_cmap('gray'), vmin=-.3,vmax=6)
     ax.text(0,1.05,r'example neuron #%d'%iex, transform=ax.transAxes)#, (thpref-.2)*180/np.pi, (thpref+.2)*180/np.pi), fontsize=8)
-    ax.set_xlabel('time from stim (s)')
+    ax.set_xlabel('time (s)')
     ax.set_ylabel('stimulus angles')
     ax.text(-0.4, 1.01, string.ascii_lowercase[4], transform=ax.transAxes, size=12)
 
@@ -357,7 +358,7 @@ def fig2(dataroot, saveroot, save_figure=False):
     RS = spearmanr(err1, err2)
     btheta = theta_pref #np.argmax(Apred @ Kup.T, axis=1) / Kup.shape[0] * 2 * np.pi
 
-    ind_trial = 904
+    ind_trial = 903
     itest_trial = (itest==ind_trial).nonzero()[0][0]
     print(itest_trial)
 
