@@ -24,7 +24,7 @@ try:
 
     class TwoLayer(nn.Module):
         def __init__(self, D_in, H, D_out):
-            super(, self).__init__()
+            super(TwoLayer, self).__init__()
             self.sigmoid = nn.Sigmoid()
             self.lil = nn.Sequential(
                 nn.Linear(D_in, H),
@@ -449,7 +449,7 @@ def nn_discriminator(xtrain, ytrain, xtest, ytest):
     D_in  = xtrain.shape[1]
     H = 100
     D_out = 1
-    model = (D_in, H, D_out)
+    model = TwoLayer(D_in, H, D_out)
 
     device = torch.device("cpu")
     model.to(device)
